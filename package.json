@@ -25,37 +25,11 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
-    },
-    "./action": {
-      "import": {
-        "types": "./dist/action.d.ts",
-        "default": "./dist/action.js"
-      },
-      "require": {
-        "types": "./dist/action.d.cts",
-        "default": "./dist/action.cjs"
-      }
-    },
-    "./effect": {
-      "import": {
-        "types": "./dist/effect.d.ts",
-        "default": "./dist/effect.js"
-      },
-      "require": {
-        "types": "./dist/effect.d.cts",
-        "default": "./dist/effect.cjs"
-      }
     }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "action": ["dist/action.d.ts"],
-      "effect": ["dist/effect.d.ts"]
-    }
-  },
   "files": ["dist"],
   "sideEffects": false,
   "engines": {
@@ -81,11 +55,6 @@
   "peerDependencies": {
     "react": ">=19"
   },
-  "peerDependenciesMeta": {
-    "effect": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.0",
     "@biomejs/biome": "^2.4.0",
@@ -97,7 +66,6 @@
     "@size-limit/file": "^11.0.0",
     "@types/react": "^19.0.0",
     "@vitest/coverage-v8": "^4.0.0",
-    "effect": "^3.0.0",
     "husky": "^9.0.0",
     "knip": "^5.0.0",
     "lint-staged": "^16.0.0",

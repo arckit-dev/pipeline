@@ -1,11 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: {
-    index: 'src/index.ts',
-    action: 'src/action/index.ts',
-    effect: 'src/effect/index.ts'
-  },
+  entry: ['src/index.ts'],
   format: ['esm', 'cjs'],
   dts: true,
   splitting: false,
