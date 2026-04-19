@@ -1,0 +1,116 @@
+{
+  "name": "@arckit/pipeline",
+  "version": "0.0.0",
+  "description": "Type-safe middleware pipeline builder with parallel execution and React provider wrapping",
+  "packageManager": "pnpm@10.33.0",
+  "license": "MIT",
+  "author": "Marc Gavanier <marc@gavanier.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arckit-dev/pipeline.git"
+  },
+  "homepage": "https://github.com/arckit-dev/pipeline#readme",
+  "bugs": {
+    "url": "https://github.com/arckit-dev/pipeline/issues"
+  },
+  "keywords": ["arckit", "pipeline", "middleware", "builder", "type-safe", "react"],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./action": {
+      "import": {
+        "types": "./dist/action.d.ts",
+        "default": "./dist/action.js"
+      },
+      "require": {
+        "types": "./dist/action.d.cts",
+        "default": "./dist/action.cjs"
+      }
+    },
+    "./effect": {
+      "import": {
+        "types": "./dist/effect.d.ts",
+        "default": "./dist/effect.js"
+      },
+      "require": {
+        "types": "./dist/effect.d.cts",
+        "default": "./dist/effect.cjs"
+      }
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint:code": "biome check --write",
+    "lint:code:ci": "biome ci",
+    "lint:commit": "commitlint --from origin/main",
+    "lint:unused": "knip",
+    "check:publint": "publint",
+    "check:attw": "attw --pack .",
+    "check:size": "size-limit",
+    "release": "semantic-release",
+    "prepare": "husky"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "peerDependenciesMeta": {
+    "effect": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.0",
+    "@biomejs/biome": "^2.4.0",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/exec": "^7.0.0",
+    "@semantic-release/git": "^10.0.0",
+    "@size-limit/file": "^11.0.0",
+    "@types/react": "^19.0.0",
+    "@vitest/coverage-v8": "^4.0.0",
+    "effect": "^3.0.0",
+    "husky": "^9.0.0",
+    "knip": "^5.0.0",
+    "lint-staged": "^16.0.0",
+    "publint": "^0.3.0",
+    "react": "^19.0.0",
+    "semantic-release": "^24.0.0",
+    "size-limit": "^11.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "2 kB"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
