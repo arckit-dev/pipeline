@@ -1,6 +1,6 @@
 {
   "name": "@arckit/pipeline",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Type-safe middleware pipeline builder with parallel execution and React provider wrapping",
   "packageManager": "pnpm@10.33.0",
   "license": "MIT",
