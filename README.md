@@ -19,7 +19,7 @@ Type-safe middleware pipeline builder with parallel execution and React provider
 
 <h2 id="about">🪧 About</h2>
 
-Framework-agnostic middleware pipeline engine. Provides the core execution model used by page, layout, action, and route builders. Supports sequential and parallel middleware execution, typed context accumulation, and React provider wrapping.
+Framework-agnostic middleware pipeline engine. Provides the core execution model for composing middlewares sequentially or in parallel, accumulating a typed context, and wrapping React providers. Used as the foundation for framework-specific builders (page, layout, route, action).
 
 <h2 id="installation">📦 Installation</h2>
 
@@ -29,7 +29,7 @@ pnpm add @arckit/pipeline
 
 <h2 id="usage">🚀 Usage</h2>
 
-### Render pipeline (pages, layouts)
+### Render pipeline
 
 ```typescript
 import { render, withFetch, withMap } from '@arckit/pipeline';
@@ -44,31 +44,19 @@ const page = render(middlewares)(async ({ users, count }, props) => (
 ));
 ```
 
-### Action builder (server actions)
+### Shared middlewares
 
 ```typescript
-import { actionBuilder } from '@arckit/pipeline/action';
+import { withFetch, withMap } from '@arckit/pipeline';
 
-const myAction = actionBuilder()
-  .use(withInput(schema))
-  .execute(async ({ input }) => doSomething(input));
-```
+// withFetch: async data fetching into context
+const loadUsers = withFetch('users', async () => fetchUsers());
 
-### Effect integration (optional)
-
-```typescript
-import { fromEither } from '@arckit/pipeline/effect';
-
-const myAction = actionBuilder()
-  .execute(fromEither(
-    async ({ input }) => createUser(input),
-    { onError: { UserAlreadyExists: 'error.exists' } }
-  ));
+// withMap: synchronous value derivation
+const countUsers = withMap('count', ({ users }) => users.length);
 ```
 
 <h2 id="api">📖 API</h2>
-
-### Core (`@arckit/pipeline`)
 
 | Export | Description |
 |--------|-------------|
@@ -76,25 +64,8 @@ const myAction = actionBuilder()
 | `applyProviders(providers, content)` | Wraps React content with provider components. |
 | `withFetch(key, fetcher)` | Middleware: fetches async data into context. |
 | `withMap(key, mapper)` | Middleware: derives a synchronous value into context. |
-
-### Action (`@arckit/pipeline/action`)
-
-| Export | Description |
-|--------|-------------|
-| `actionBuilder(options?)` | Creates a pipe-based middleware builder for server actions. |
-| `ServerActionSuccess(data?)` | Constructs a success result. |
-| `ServerActionError(error)` | Constructs an error result. |
-| `PipeMiddleware<In, Out, Result, Error>` | Type for action pipe middlewares. |
-
-Options:
-- `errorPrefix` — Prefix prepended to error strings.
-- `isRethrowableError` — Predicate for errors that should be rethrown (e.g., Next.js redirect errors).
-
-### Effect (`@arckit/pipeline/effect`)
-
-| Export | Description |
-|--------|-------------|
-| `fromEither(handler, options)` | Converts an Effect `Either` result into a `ServerActionResult` with error mapping. |
+| `Provider` | Type for React provider configuration (component + props). |
+| `Merge<A, B>` | Utility type for merging context types. |
 
 <h2 id="contributing">🤗 Contributing</h2>
 
